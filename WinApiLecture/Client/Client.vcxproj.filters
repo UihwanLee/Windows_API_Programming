@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{0478cadc-96d6-472c-b17c-60e7f7695e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{69294d24-9255-45e5-ac52-06395e4cbd2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine\02. Core">
+      <UniqueIdentifier>{ff262741-d700-4aec-91d0-e237ed400183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Header">
+      <UniqueIdentifier>{eee13bc3-3e3a-4621-a70a-123e2ee1db04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager">
+      <UniqueIdentifier>{56c52b8b-5771-4422-834a-82d943db973e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\KeyMgr">
+      <UniqueIdentifier>{003fb0c2-c34b-4b75-a82b-91bc8a8eba92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CCore.h">
+      <Filter>Engine\02. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Engine\01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>Engine\03. Manager\KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCore.cpp">
+      <Filter>Engine\02. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>Engine\03. Manager\KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>Default\리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Default\리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>Default\리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
