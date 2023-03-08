@@ -14,6 +14,8 @@ CCore::CCore()
 	: m_hWnd(0)
 	, m_ptResouluton{}
 	, m_hDC(0)
+	, m_hBit(0)
+	, m_memDC(0)
 {
 
 }
@@ -21,6 +23,9 @@ CCore::CCore()
 CCore::~CCore()
 {
 	ReleaseDC(m_hWnd, m_hDC);
+
+	DeleteDC(m_memDC);
+	DeleteObject(m_hBit);
 }
 
 int CCore::init(HWND _hWnd, POINT _ptResolution)
@@ -35,6 +40,15 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 	m_hDC = GetDC(m_hWnd);
 
+	// 이중 버퍼링 용도의 비트맵과 DC를 만든다.
+	m_hBit = CreateCompatibleBitmap(m_hDC, m_ptResouluton.x, m_ptResouluton.y);
+	m_memDC = CreateCompatibleDC(m_hDC);
+
+	HBITMAP hOldBit = (HBITMAP)SelectObject(m_memDC, m_hBit);
+
+	// 1픽셀의 BitMap을 가진 DC는 바로 제거해준다(DC는 생성될때 기본적으로 1픽셀의 BitMap을 가짐)
+	DeleteObject(hOldBit); 
+
 	// Manager 초기화
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
@@ -47,6 +61,10 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 void CCore::progress()
 {
+	// Manager Update
+	CTimeMgr::GetInst()->update();
+	CKeyMgr::GetInst()->update();
+
 	update();
 
 	render();
@@ -58,14 +76,14 @@ void CCore::update()
 
 	Vec2 vPos = g_obj.GetPos();
 
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (CKeyMgr::GetInst()->GetKeyState(KEY::LEFT) == KEY_STATE::HOLD)
 	{
-		vPos.x -= 0.01f;
+		vPos.x -= 200.f * CTimeMgr::GetInst()->GetfDT();
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (CKeyMgr::GetInst()->GetKeyState(KEY::RIGHT) == KEY_STATE::HOLD)
 	{
-		vPos.x += 0.01f;
+		vPos.x += 200.f * CTimeMgr::GetInst()->GetfDT();
 	}
 
 	g_obj.SetPos(vPos);
@@ -73,13 +91,21 @@ void CCore::update()
 
 void CCore::render()
 {
+	// 사용할 DC는 BitMap의 m_memDC 사용
+
+	// 화면 Clear
+	Rectangle(m_memDC, -1, -1, m_ptResouluton.x + 1, m_ptResouluton.y + 1);
+
 	// 그리기
 	Vec2 vPos = g_obj.GetPos();
 	Vec2 vScale = g_obj.GetScale();
 
-	Rectangle(m_hDC
+	Rectangle(m_memDC
 			, int(vPos.x - vScale.x / 2.f)
 			, int(vPos.y - vScale.y / 2.f)
 			, int(vPos.x + vScale.x / 2.f)
 			, int(vPos.y + vScale.y / 2.f));
+
+	BitBlt(m_hDC, 0, 0, m_ptResouluton.x, m_ptResouluton.y
+			, m_memDC, 0, 0, SRCCOPY);
 }
