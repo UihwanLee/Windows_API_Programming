@@ -9,7 +9,6 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_RIGHT, 
 	VK_UP,
 	VK_DOWN, 
-
 	'Q',
 	'W',
 	'E',
@@ -20,7 +19,6 @@ int g_arrVK[(int)KEY::LAST] =
 	'I',
 	'O',
 	'P',
-
 	'A',
 	'S',
 	'D',
@@ -31,7 +29,6 @@ int g_arrVK[(int)KEY::LAST] =
 	'C',
 	'V',
 	'B',
-
 	VK_MENU,
 	VK_CONTROL,
 	VK_LSHIFT,

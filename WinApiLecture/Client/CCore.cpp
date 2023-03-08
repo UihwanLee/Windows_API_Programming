@@ -3,12 +3,11 @@
 
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
+#include "CSceneMgr.h"
 
 #include "CObject.h"
 
 //CCore* CCore::g_pInst = nullptr;
-
-CObject g_obj;
 
 CCore::CCore()
 	: m_hWnd(0)
@@ -52,9 +51,7 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 	// Manager 초기화
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
-
-	g_obj.SetPos(Vec2( (float)(m_ptResouluton.x / 2), (float)(m_ptResouluton.y / 2)));
-	g_obj.SetScale(Vec2( 100, 100 ));
+	CSceneMgr::GetInst()->init();
 
 	return S_OK;
 }
@@ -65,47 +62,16 @@ void CCore::progress()
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
 
-	update();
+	CSceneMgr::GetInst()->update();
 
-	render();
-}
-
-void CCore::update()
-{
-	// 오브젝트들의 변경점을 체크
-
-	Vec2 vPos = g_obj.GetPos();
-
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::LEFT) == KEY_STATE::HOLD)
-	{
-		vPos.x -= 200.f * CTimeMgr::GetInst()->GetfDT();
-	}
-
-	if (CKeyMgr::GetInst()->GetKeyState(KEY::RIGHT) == KEY_STATE::HOLD)
-	{
-		vPos.x += 200.f * CTimeMgr::GetInst()->GetfDT();
-	}
-
-	g_obj.SetPos(vPos);
-}
-
-void CCore::render()
-{
-	// 사용할 DC는 BitMap의 m_memDC 사용
-
+	// =========
+	// Rendering
+	// =========
 	// 화면 Clear
 	Rectangle(m_memDC, -1, -1, m_ptResouluton.x + 1, m_ptResouluton.y + 1);
 
-	// 그리기
-	Vec2 vPos = g_obj.GetPos();
-	Vec2 vScale = g_obj.GetScale();
-
-	Rectangle(m_memDC
-			, int(vPos.x - vScale.x / 2.f)
-			, int(vPos.y - vScale.y / 2.f)
-			, int(vPos.x + vScale.x / 2.f)
-			, int(vPos.y + vScale.y / 2.f));
+	CSceneMgr::GetInst()->render(m_memDC);
 
 	BitBlt(m_hDC, 0, 0, m_ptResouluton.x, m_ptResouluton.y
-			, m_memDC, 0, 0, SRCCOPY);
+		, m_memDC, 0, 0, SRCCOPY);
 }

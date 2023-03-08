@@ -30,7 +30,6 @@ enum class KEY
 	I,
 	O,
 	P,
-
 	A,
 	S,
 	D,
@@ -40,15 +39,13 @@ enum class KEY
 	X,
 	C,
 	V,
-	B,
-	
+	B,	
 	ALT,
 	CTRL,
 	LSHIFT,
 	SPACE,
 	ENTER,
 	ESC,
-
 	LAST,
 
 };
