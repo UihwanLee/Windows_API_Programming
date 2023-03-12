@@ -8,7 +8,7 @@
 > 학습 환경 
 
  * Game Project : Microsoft Visual Studio 2022
- * Learn Site : [어소트락 게임아카데믹 YouTube](https://www.youtube.com/watch?v=dlFr-OnHlWU&list=PL4SIC1d_ab-ZLg4TvAO5R4nqlJTyJXsPK)
+ * Learn Site : [어소트락 게임아카데믹 YouTube/Win32 강의](https://www.youtube.com/watch?v=dlFr-OnHlWU&list=PL4SIC1d_ab-ZLg4TvAO5R4nqlJTyJXsPK)
  
 ![Microsoft_logo](https://user-images.githubusercontent.com/36596037/224404194-cd15d9e7-528b-4fa5-9637-743a813e68f6.png)
   
